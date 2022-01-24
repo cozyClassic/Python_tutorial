@@ -1,17 +1,21 @@
-import time
+T = int(input())
 
-a = "RANDOM"
+def factorial(n) :
+    result = 1
+    for i in range(2,n+1) :
+        result *= i
+    return result
 
-for i in a :
-    print(i, end = " ")
-    time.sleep(0.3)
+def solve(N,M) :
+    return int(factorial(M) / (factorial(N) * factorial(M-N)))
 
-# 이 상태로는 하나씩 출력되는 것이 아닌, 한번에 출력이 됨.
+for i in range(T) :
+    N, M = map(int,input().split())
+    print(solve(N,M))
 
-print()
 
-for i in a :
-    print(i, end = " ", flush=True)
-    time.sleep(0.3)
+"""
+n C r =
+n! / (r!) * (n-r)!
 
-# 이 상태로는 문자열이 0.3초마다 출력됨
+"""

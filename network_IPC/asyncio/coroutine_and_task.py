@@ -26,12 +26,14 @@ async def prac2() :
 
 asyncio.run(prac2())
 
+
 """결과값
 시작시간 : 15:56:56
 hello
 world
 종료시간 : 15:56:59
 """
+
 
 # 코루틴을 사용해서 두개의 함수를 동시에 실행시키기.
 async def prac3() :
@@ -52,21 +54,23 @@ async def nested() :
 async def awaitable_prac1() :
     # 단순히 nested()를 하는 것으로는 아무일도 일어나지 안흔다.
     # 코루틴 객체가 생성되지만, 대기하지는 않는다.
-    # 따라서 이 함수는 '전혀 실행되지 않는다.'
-    # nested() # 에러발생
+    # 따라서 nested() 함수는 '전혀 실행되지 않는다.'
+    nested() # 에러가 발생하진 않지만, 경고(RuntimeWaring)가 발생한다.
 
     print(await nested())
 
 asyncio.run(awaitable_prac1())
 
+print("정상작동!")
+
 
 async def awaitable_prac2() :
-    # nested() 비동기 함수에 대해 스케쥴을 잡는다.
+    # nested() 함수가 동시실행 되도록 예약한다.
+    # main()과 함께
     task = asyncio.create_task(nested())
 
-    # "task"는 nested()를 취소하거나
-    # 단순히 task가 끝날 때까지 기다릴 수 있다.
+    # "task"는 이제 nested()를 취소할 때 사용된다.
+    # 혹은 동작이 완료될 때까지 그냥 대기할 수도 있다.
     await task
-    print('이거 끝?')
 
 asyncio.run(awaitable_prac2())
